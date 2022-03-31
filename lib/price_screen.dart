@@ -48,7 +48,7 @@ class PriceScreen extends StatefulWidget {
 }
 
 class _PriceScreenState extends State<PriceScreen> {
-  String selectedCurrency = 'AUD';
+  String selectedCurrency = 'USD';
 
   DropdownButton<String> androidDropdown() {
     List<DropdownMenuItem<String>> dropdownItems = [];
@@ -148,6 +148,14 @@ class _PriceScreenState extends State<PriceScreen> {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
           makeCards(),
+          Container(
+            child: ElevatedButton(
+              onPressed: () {
+                getData();
+              },
+              child: Text('Refresh'),
+            ),
+          ),
           Container(
             height: 150.0,
             alignment: Alignment.center,
