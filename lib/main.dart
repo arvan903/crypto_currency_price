@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'price_screen.dart';
 
 void main() {
-  runApp(myApp());
+  runApp(const MyApp());
 }
 
-class myApp extends StatelessWidget {
-  const myApp({Key? key}) : super(key: key);
+class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +15,7 @@ class myApp extends StatelessWidget {
       theme: ThemeData.dark().copyWith(
           primaryColor: Colors.lightBlue,
           scaffoldBackgroundColor: Colors.white),
-      home: PriceScreen(),
+      home: const PriceScreen(),
     );
   }
 }

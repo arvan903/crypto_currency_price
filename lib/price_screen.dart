@@ -4,11 +4,12 @@ import 'package:flutter/cupertino.dart';
 import 'dart:io' show Platform;
 
 class CryptoCard extends StatelessWidget {
-  const CryptoCard({
-    required this.value,
-    required this.selectedCurrency,
-    required this.cryptoCurrency,
-  });
+  const CryptoCard(
+      {Key? key,
+      required this.value,
+      required this.selectedCurrency,
+      required this.cryptoCurrency})
+      : super(key: key);
 
   final String value;
   final String selectedCurrency;
@@ -17,7 +18,7 @@ class CryptoCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.fromLTRB(18.0, 18.0, 18.0, 0),
+      padding: const EdgeInsets.fromLTRB(18.0, 18.0, 18.0, 0),
       child: Card(
         color: Colors.lightBlueAccent,
         elevation: 5.0,
@@ -25,11 +26,11 @@ class CryptoCard extends StatelessWidget {
           borderRadius: BorderRadius.circular(10.0),
         ),
         child: Padding(
-          padding: EdgeInsets.symmetric(vertical: 15.0, horizontal: 28.0),
+          padding: const EdgeInsets.symmetric(vertical: 15.0, horizontal: 28.0),
           child: Text(
             '1 $cryptoCurrency = $value $selectedCurrency',
             textAlign: TextAlign.center,
-            style: TextStyle(
+            style: const TextStyle(
               fontSize: 20.0,
               color: Colors.white,
             ),
@@ -54,7 +55,10 @@ class _PriceScreenState extends State<PriceScreen> {
     List<DropdownMenuItem<String>> dropdownItems = [];
     for (String currency in currenciesList) {
       var newItem = DropdownMenuItem(
-        child: Text(currency),
+        child: Text(
+          currency,
+          style: const TextStyle(fontSize: 20),
+        ),
         value: currency,
       );
       dropdownItems.add(newItem);
@@ -101,6 +105,7 @@ class _PriceScreenState extends State<PriceScreen> {
 
   void getData() async {
     isWaiting = true;
+
     try {
       var data = await CoinData().getCoinData(selectedCurrency);
       isWaiting = false;
@@ -139,7 +144,9 @@ class _PriceScreenState extends State<PriceScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
+        backgroundColor: Colors.blue.shade300,
+        centerTitle: true,
+        title: const Text(
           'Crypto Currency Price',
         ),
       ),
@@ -149,17 +156,29 @@ class _PriceScreenState extends State<PriceScreen> {
         children: <Widget>[
           makeCards(),
           Container(
+            padding: const EdgeInsets.only(left: 25, right: 25),
             child: ElevatedButton(
+              style: ButtonStyle(
+                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                  RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(25.0),
+                    side: const BorderSide(color: Colors.black),
+                  ),
+                ),
+              ),
               onPressed: () {
                 getData();
               },
-              child: Text('Refresh'),
+              child: const Text(
+                'Refresh',
+                style: TextStyle(fontSize: 20),
+              ),
             ),
           ),
           Container(
             height: 150.0,
             alignment: Alignment.center,
-            padding: EdgeInsets.only(bottom: 30.0),
+            padding: const EdgeInsets.only(bottom: 30.0),
             color: Colors.lightBlue,
             child: Platform.isAndroid ? androidDropdown() : iOSpicker(),
           ),
